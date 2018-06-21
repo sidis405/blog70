@@ -1,8 +1,10 @@
 <?php
 
-Route::get('/', 'TasksController@index');
+Route::get('/', 'PostsController@index');
 
-Route::get('tasks/{task}', 'TasksController@show');
+// Route::get('/', 'TasksController@index');
+
+// Route::get('tasks/{task}', 'TasksController@show');
 
 // Route::get('/', function () {
 //     $tasks = \App\Task::get();
@@ -71,3 +73,7 @@ Route::get('tasks/{task}', 'TasksController@show');
 //     // return view('welcome')->with(['nome' => $nome]);
 //     // return view('welcome', ['nome' => $nome]);
 // });
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
