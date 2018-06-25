@@ -8,11 +8,17 @@ class PostsController extends Controller
 {
     public function index()
     {
-        // $tags = \App\Tag::all();
-
-        // return $tags->pluck('id')->random(3);
-
         // Eager Loading - n+1
-        return Post::with('user', 'category', 'tags')->get();
+        $posts = Post::with('user', 'category', 'tags')->paginate(15);
+        // $posts = Post::get();
+
+        return view('posts.index', compact('posts'));
+    }
+
+    public function show(Post $post)
+    {
+        $post->load('user', 'category', 'tags', 'comments.replies');
+
+        return view('posts.show', compact('post'));
     }
 }

@@ -1,6 +1,27 @@
 <?php
 
+// verbo (get, post) - URL - destinazione (metodo del controller | funzione Closure)
 Route::get('/', 'PostsController@index');
+Route::get('posts/{post}', 'PostsController@show')->name('posts.show');
+
+Auth::routes();
+
+// CRUD - Create, Read, Update, Delete
+// REST - 7 metodi
+
+//posts
+// GET - POST - PATCH|PUT - DELETE
+// index - Lista di tutti i posts                       - GET       - /posts                PostsController@index
+// create - Visualizza form creazione post              - GET       - /posts/create         PostsController@create
+// store - Salvataggio post nel database                - POST      - /posts                PostsController@store
+// show - Visualizza un singolo post                    - GET       - /posts/{post}         PostsController@show
+// edit - Visualizza form modifica post                 - GET       - /posts/{post}/edit    PostsController@edit
+// update - Aggiornamento post nel database             - PATCH     - /posts/{post}         PostsController@update
+// destroy - cancellazione post                         - DELETE    - /posts/{post}         PostsController@destroy
+
+///////////////////////////////////////////////////////////////
+
+// Route::get('/home', 'HomeController@index')->name('home');
 
 // Route::get('/', 'TasksController@index');
 
@@ -73,7 +94,3 @@ Route::get('/', 'PostsController@index');
 //     // return view('welcome')->with(['nome' => $nome]);
 //     // return view('welcome', ['nome' => $nome]);
 // });
-
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
