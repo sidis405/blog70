@@ -4,6 +4,8 @@
             <h5><a href="{{ route('posts.show', $post) }}">{{ $post->title }}</a></h5>
             <small>posts by: {{ $post->user->name }}</small>
             <small>on: {{ $post->category->name }}</small>
+
+            <small class="pull-right"><a href="{{ route('posts.edit', $post) }}">Edit</a></small>
         </div>
         <div class="card-body">
             <p>

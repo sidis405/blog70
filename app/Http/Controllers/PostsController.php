@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Tag;
 use App\Post;
 use App\Category;
-use Illuminate\Http\Request;
+use App\Http\Requests\PostRequest;
 
 class PostsController extends Controller
 {
@@ -17,9 +17,7 @@ class PostsController extends Controller
 
     public function index()
     {
-        // Eager Loading - n+1
         $posts = Post::with('user', 'category', 'tags')->paginate(15);
-        // $posts = Post::get();
 
         return view('posts.index', compact('posts'));
     }
@@ -39,38 +37,40 @@ class PostsController extends Controller
         return view('posts.create', compact('categories', 'tags'));
     }
 
-    public function store(Request $request)
+    public function store(PostRequest $request)
     {
-        // return $request->all('title', 'preview', 'body', 'category_id');
-        // return $request->only('title', 'preview', 'body', 'category_id');
-
-        // return $request->get('body');
-        // return $request->body;
-
-        // return $request->all();
-
-        // $post = new Post;
-        // // title
-        // $post->title = $request->title;
-        // // slug
-        // // $post->slug = str_slug($request->title);
-        // // preview
-        // $post->preview = $request->preview;
-        // // body
-        // $post->body = $request->body;
-        // // category_id
-        // $post->category_id = $request->category_id;
-        // // user_id
-        // // $post->user_id = \Auth::user()->id;
-        // // $post->user_id = auth()->user()->id;
-        // $post->user_id = auth()->id();
-
-        // $post->save();
-
-        $post = auth()->user()->posts()->create($request->all('title', 'preview', 'body', 'category_id'));
+        $post = auth()->user()->posts()->create($request->validated());
 
         $post->tags()->sync($request->tags);
 
         return redirect()->route('posts.show', $post);
+    }
+
+    public function edit(Post $post)
+    {
+        $categories = Category::all();
+        $tags = Tag::all();
+
+        return view('posts.edit', compact('post', 'categories', 'tags'));
+    }
+
+    public function update(Post $post, PostRequest $request)
+    {
+        $post->update($request->validated());
+        $post->tags()->sync($request->tags);
+
+        return redirect()->route('posts.show', $post);
+    }
+
+    public function destroy(Post $post)
+    {
+        // rimuovi associazioni con tags
+        $post->tags()->sync([]);
+
+        // rimuove il post
+        $post->delete();
+
+        // ridirigge alla home
+        return redirect('/');
     }
 }
