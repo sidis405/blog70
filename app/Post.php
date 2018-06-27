@@ -6,6 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Post extends Model
 {
+    // protected $fillable = ['title', 'user_id', 'category_id', 'preview', 'fillable'];
+    protected $guarded = [];
+
     // appartiene a 1+ Tag
     public function tags()
     {
@@ -28,5 +31,19 @@ class Post extends Model
     public function comments()
     {
         return $this->morphMany(Comment::class, 'commentable');
+    }
+
+    // getters = accessros - modifcano il dato che provviene dal database prima di restituirlo
+    public function getTitleAttribute($title)
+    {
+        return $title;
+        // return strtoupper($title);
+    }
+
+    // setters = mutators - modificano il dato prima di salvarlo nel database
+    public function setTitleAttribute($title)
+    {
+        $this->attributes['title'] = $title;
+        $this->attributes['slug'] = str_slug($title);
     }
 }
