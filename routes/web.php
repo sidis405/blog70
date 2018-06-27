@@ -1,22 +1,17 @@
 <?php
 
-// verbo (get, post) - URL - destinazione (metodo del controller | funzione Closure)
+
 Route::get('/', 'PostsController@index')->name('posts.index');
-
-// Route::get('posts/{post}', 'PostsController@show')->name('posts.show')->where('post', '[0-9]');
-Route::get('posts/create', 'PostsController@create')->name('posts.create');
-Route::post('posts', 'PostsController@store')->name('posts.store');
-
-Route::get('posts/{post}/edit', 'PostsController@edit')->name('posts.edit');
-Route::patch('posts/{post}', 'PostsController@update')->name('posts.update');
-
-Route::get('posts/{post}', 'PostsController@show')->name('posts.show');
-
-Route::delete('posts/{post}', 'PostsController@destroy')->name('posts.destroy');
-
-
+Route::resource('posts', 'PostsController')->except('index');
 
 Auth::routes();
+
+// Route::get('posts/create', 'PostsController@create')->name('posts.create');
+// Route::post('posts', 'PostsController@store')->name('posts.store');
+// Route::get('posts/{post}/edit', 'PostsController@edit')->name('posts.edit');
+// Route::patch('posts/{post}', 'PostsController@update')->name('posts.update');
+// Route::get('posts/{post}', 'PostsController@show')->name('posts.show');
+// Route::delete('posts/{post}', 'PostsController@destroy')->name('posts.destroy');
 
 // Http 1.1 - GET, POST, PUT, PATCH, DELETE
 
