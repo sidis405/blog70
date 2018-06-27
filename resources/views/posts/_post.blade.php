@@ -5,7 +5,12 @@
             <small>posts by: {{ $post->user->name }}</small>
             <small>on: {{ $post->category->name }}</small>
 
-            <small class="pull-right"><a href="{{ route('posts.edit', $post) }}">Edit</a></small>
+            @can('update', $post)
+
+                <small class="pull-right"><a href="{{ route('posts.edit', $post) }}">Edit</a></small>
+
+            @endcan
+
         </div>
         <div class="card-body">
             <p>

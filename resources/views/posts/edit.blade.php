@@ -52,15 +52,20 @@
 
     </form>
 
-    <hr>
 
-    <form action="{{ route('posts.destroy', $post) }}" method="POST">
-        @csrf
-        @method('DELETE')
+    @can('delete', $post)
 
-        <div class="form-group">
-            <button type="submit" class="btn btn-danger pull-right" onclick="return confirm('Are you sure?');">Delete post</button>
-        </div>
-    </form>
+        <hr>
+
+        <form action="{{ route('posts.destroy', $post) }}" method="POST">
+            @csrf
+            @method('DELETE')
+
+            <div class="form-group">
+                <button type="submit" class="btn btn-danger pull-right" onclick="return confirm('Are you sure?');">Delete post</button>
+            </div>
+        </form>
+
+    @endcan
 
 @stop

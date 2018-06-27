@@ -48,6 +48,8 @@ class PostsController extends Controller
 
     public function edit(Post $post)
     {
+        $this->authorize('update', $post);
+
         $categories = Category::all();
         $tags = Tag::all();
 
@@ -56,6 +58,8 @@ class PostsController extends Controller
 
     public function update(Post $post, PostRequest $request)
     {
+        $this->authorize('update', $post);
+
         $post->update($request->validated());
         $post->tags()->sync($request->tags);
 
@@ -64,6 +68,8 @@ class PostsController extends Controller
 
     public function destroy(Post $post)
     {
+        $this->authorize('delete', $post);
+
         // rimuovi associazioni con tags
         $post->tags()->sync([]);
 

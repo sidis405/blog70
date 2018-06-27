@@ -24,8 +24,21 @@ class DatabaseSeeder extends Seeder
 
         $tags = factory(Tag::class, 20)->create();
 
+
+        // primo utente come admin
+        User::create(
+            [
+                'name' => 'Sid',
+                'email' => 'forge405@gmail.com',
+                'password' => bcrypt('sapiens'),
+                'role' => 'admin',
+            ]
+        );
+
+        factory(User::class, 9)->create();
+
         // 10 utenti
-        $users = factory(User::class, 10)->create();
+        $users = User::all();
 
         // 15 posts
         // ciascun post prenda una Category random da 10 create
