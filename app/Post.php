@@ -40,10 +40,20 @@ class Post extends Model
         // return strtoupper($title);
     }
 
+    public function getCoverAttribute($cover)
+    {
+        return '/storage/' . (($cover) ?? 'covers/cover.jpg'); // null coalescence oprator
+    }
+
     // setters = mutators - modificano il dato prima di salvarlo nel database
     public function setTitleAttribute($title)
     {
         $this->attributes['title'] = $title;
         $this->attributes['slug'] = str_slug($title);
+    }
+
+    public function setCoverAttribute($cover)
+    {
+        $this->attributes['cover'] = $cover->store('covers');
     }
 }

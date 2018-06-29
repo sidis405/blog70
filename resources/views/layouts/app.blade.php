@@ -77,7 +77,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-12">
-                        @include('layouts.validation_errors')
+                        @include('layouts.feedback')
                         @yield('content')
                     </div>
                 </div>

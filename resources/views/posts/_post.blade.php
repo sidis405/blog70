@@ -1,5 +1,8 @@
 <article>
     <div class="card">
+
+        <img src="{{ $post->cover }}" style="width: 100%">
+
         <div class="card-header">
             <h5><a href="{{ route('posts.show', $post) }}">{{ $post->title }}</a></h5>
             <small>posts by: {{ $post->user->name }}</small>
