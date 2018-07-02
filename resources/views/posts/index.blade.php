@@ -5,7 +5,7 @@
 
     <h4>Latest Posts</h4>
 
-    {{ $posts->links() }}
+    {{-- {{ $posts->links() }} --}}
 
     @foreach($posts as $post)
 
