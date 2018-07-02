@@ -3,16 +3,8 @@
 
 @section('content')
 
-    <h4>Latest Posts</h4>
+    <h4>Latest Posts {{request('month')}} {{request('year')}} ({{ $posts->total() }})</h4>
 
-    {{-- {{ $posts->links() }} --}}
-
-    @foreach($posts as $post)
-
-        @include('posts._post')
-
-    @endforeach
-
-    {{ $posts->links() }}
+    @include('posts._postlist')
 
 @stop

@@ -27,10 +27,11 @@ class AppServiceProvider extends ServiceProvider
 
             $tags = Tag::whereHas('posts')->withCount('posts')->get();
 
-            $archive = [];
+            $archives = Post::selectRaw('year(created_at) year, monthname(created_at) month , count(*) published')
+            ->groupBy('year', 'month')->orderByRaw('min(created_at) DESC')->get();
 
 
-            $view->with('categories', $categories)->with('tags', $tags)->with('archive', $archive);
+            $view->with('categories', $categories)->with('tags', $tags)->with('archives', $archives);
         });
 
         \View::composer('posts._form', function ($view) {

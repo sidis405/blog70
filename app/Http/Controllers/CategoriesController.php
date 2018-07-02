@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Post;
 use App\Category;
 
 class CategoriesController extends Controller
 {
     public function show(Category $category)
     {
-        $category->load('posts');
+        $posts = Post::where('category_id', $category->id)->with('user', 'category', 'tags')->latest()->paginate(15);
 
-        return $category;
+        return view('categories.show', compact('category', 'posts'));
     }
 }

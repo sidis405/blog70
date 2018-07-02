@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Post;
 use App\Category;
+use Carbon\Carbon;
 use App\Http\Requests\PostRequest;
 
 class PostsController extends Controller
@@ -15,7 +16,17 @@ class PostsController extends Controller
 
     public function index()
     {
-        $posts = Post::with('user', 'category', 'tags')->latest()->paginate(15);
+        $posts = Post::with('user', 'category', 'tags');
+
+        if ($year = request('year')) {
+            $posts->whereYear('created_at', $year);
+        }
+
+        if ($month = request('month')) {
+            $posts->whereMonth('created_at', Carbon::parse($month)->month);
+        }
+
+        $posts = $posts->latest()->paginate(15);
 
         return view('posts.index', compact('posts'));
     }
