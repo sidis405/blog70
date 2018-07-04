@@ -2,12 +2,15 @@
 
 namespace App;
 
+use Tymon\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class User extends Authenticatable
+class User extends Authenticatable implements JWTSubject
 {
     use Notifiable;
+
+    protected $connection = 'db01';
 
     /**
      * The attributes that are mass assignable.
@@ -37,5 +40,16 @@ class User extends Authenticatable
     public function comments()
     {
         return $this->hasMany(Comment::class);
+    }
+
+    public function getJWTIdentifier()
+    {
+        return $this->getKey();
+        // return $this->primaryKey;
+    }
+
+    public function getJWTCustomClaims()
+    {
+        return [];
     }
 }

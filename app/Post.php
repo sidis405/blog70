@@ -11,7 +11,7 @@ class Post extends Model
     // protected $fillable = ['title', 'user_id', 'category_id', 'preview', 'fillable'];
     protected $guarded = [];
 
-
+    protected $connection = 'db02';
     // public static function boot()
     // {
     //     parent::boot();

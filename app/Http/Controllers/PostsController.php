@@ -3,30 +3,22 @@
 namespace App\Http\Controllers;
 
 use App\Post;
-use App\Category;
-use Carbon\Carbon;
 use App\Http\Requests\PostRequest;
+use SHARED_STUFF\Repositories\PostsRepository;
 
 class PostsController extends Controller
 {
-    public function __construct()
+    private $postsRepository;
+
+    public function __construct(PostsRepository $postsRepository)
     {
         $this->middleware('auth')->except('index', 'show'); //eccetto index, show
+        $this->postsRepository = $postsRepository;
     }
 
     public function index()
     {
-        $posts = Post::with('user', 'category', 'tags');
-
-        if ($year = request('year')) {
-            $posts->whereYear('created_at', $year);
-        }
-
-        if ($month = request('month')) {
-            $posts->whereMonth('created_at', Carbon::parse($month)->month);
-        }
-
-        $posts = $posts->latest()->paginate(15);
+        $posts = $this->postsRepository->getAll()->paginate(15);
 
         return view('posts.index', compact('posts'));
     }
@@ -47,9 +39,7 @@ class PostsController extends Controller
 
     public function store(PostRequest $request)
     {
-        $post = auth()->user()->posts()->create($request->validated());
-
-        $post->tags()->sync($request->tags);
+        $post = $this->postsRepository->store($request);
 
         return redirect()->route('posts.show', $post)->with('type', 'success')->with('status', 'Post was created');
     }

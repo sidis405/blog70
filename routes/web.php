@@ -13,6 +13,20 @@ Route::get('tags/{tag}', 'TagsController@show')->name('tags.show');
 
 Auth::routes();
 
+//jwt - JSON Web Tokens
+
+//oauth2 -
+    // - Access Token Grant
+    //     - Avviene su Dominio Autenticatore (redirect github.com)
+    //     - App_ID
+    //     - App_secret
+    //         - storiamo il token
+    //         - viene passato in ogni richiesta seguente
+    // - Password Grant
+    //     - Avviene su Dominio Client (blog70.dev)
+    //     - App_ID
+    //     - App_secret
+
 // Route::get('posts/create', 'PostsController@create')->name('posts.create');
 // Route::post('posts', 'PostsController@store')->name('posts.store');
 // Route::get('posts/{post}/edit', 'PostsController@edit')->name('posts.edit');
