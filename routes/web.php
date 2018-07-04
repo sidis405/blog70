@@ -8,6 +8,9 @@ Route::get('categories/{category}', 'CategoriesController@show')->name('categori
 
 Route::get('tags/{tag}', 'TagsController@show')->name('tags.show');
 
+// (url, 'blade-file')
+// Route::view('endore', 'endore');
+
 Auth::routes();
 
 // Route::get('posts/create', 'PostsController@create')->name('posts.create');

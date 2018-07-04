@@ -6,7 +6,7 @@
         <ul style="list-style: none;">
             @foreach($archives as $archive)
                 <li>
-                    <a href="/?month={{ $archive->month }}&year={{ $archive->year }}">{{ $archive->month }} {{ $archive->year }}</a> ({{ $archive->published }})
+                    <a href="{{ route('posts.index') }}?month={{ $archive->month }}&year={{ $archive->year }}">{{ $archive->month }} {{ $archive->year }}</a> ({{ $archive->published }})
                 </li>
             @endforeach
         </ul>

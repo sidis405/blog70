@@ -37,6 +37,13 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('posts.create') }}">+ New Post</a>
                         </li>
+
+                        @foreach(config('app.locales') as $locale => $label)
+                            <li class="nav-item">
+                                {{-- {{ str_replace('/' . app()->getLocale(), '/' . $locale, request()->url()) }} --}}
+                                <a class="nav-link" href="{{ preg_replace('/' . app()->getLocale() . '/i', $locale, request()->url(), 1) }}">{{ $label }}</a>
+                            </li>
+                        @endforeach
                     </ul>
 
                     <!-- Right Side Of Navbar -->

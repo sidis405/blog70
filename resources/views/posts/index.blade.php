@@ -3,7 +3,7 @@
 
 @section('content')
 
-    <h4>Latest Posts {{request('month')}} {{request('year')}} ({{ $posts->total() }})</h4>
+    <h4>{{ __('blog.latest_posts') }} {{request('month')}} {{request('year')}} ({{ $posts->total() }})</h4>
 
     @include('posts._postlist')
 
