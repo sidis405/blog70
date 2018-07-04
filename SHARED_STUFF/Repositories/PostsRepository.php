@@ -3,6 +3,7 @@
 namespace SHARED_STUFF\Repositories;
 
 use App\Post;
+use Carbon\Carbon;
 use App\Http\Requests\PostRequest;
 
 class PostsRepository

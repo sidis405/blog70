@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable implements JWTSubject
 {
+    use \Spiritix\LadaCache\Database\LadaCacheTrait;
     use Notifiable;
 
     protected $connection = 'db01';

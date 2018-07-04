@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Storage;
 
 class Post extends Model
 {
+    use \Spiritix\LadaCache\Database\LadaCacheTrait;
     // protected $fillable = ['title', 'user_id', 'category_id', 'preview', 'fillable'];
     protected $guarded = [];
 

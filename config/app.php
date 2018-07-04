@@ -155,6 +155,7 @@ return [
         /*
          * Package Service Providers...
          */
+        Spiritix\LadaCache\LadaCacheServiceProvider::class,
 
         /*
          * Application Service Providers...

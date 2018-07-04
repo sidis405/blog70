@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Comment extends Model
 {
+    use \Spiritix\LadaCache\Database\LadaCacheTrait;
     // appartiene a 1 User
     public function user()
     {
